@@ -1,0 +1,159 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<header>
+    {% block header %}{% endblock %}
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+        $base-spacing-unit: 24px;
+        $half-spacing-unit: $base-spacing-unit / 2;
+
+        $color-alpha: #1772FF;
+        $color-form-highlight: #EEEEEE;
+
+        *, *:before, *:after {
+        	box-sizing:border-box;
+        }
+
+        body {
+        	padding:$base-spacing-unit;
+        	font-family:'Source Sans Pro', sans-serif;
+        	margin:0;
+        	background-color: #0C0032;
+        }
+
+        h1,h2,h3,h4,h5,h6 {
+        	margin:0;
+        }
+
+        .container {
+        	max-width: 1000px;
+        	margin-right:auto;
+        	margin-left:auto;
+        	display:flex;
+        	justify-content:center;
+        	align-items:center;
+        	min-height:100vh;
+        }
+
+        .table {
+        	width:100%;
+        	border:1px solid $color-form-highlight;
+        }
+
+        .table-header {
+        	display:flex;
+        	width:100%;
+        	background:#240090;
+        	padding:($half-spacing-unit * 1.5) 0;
+        }
+
+        .table-row {
+        	display:flex;
+        	width:100%;
+        	padding:($half-spacing-unit * 1.5) 0;
+
+        	&:nth-of-type(odd) {
+        		background:$color-form-highlight;
+        	}
+        }
+
+        .table-data, .header__item {
+        	flex: 1 1 20%;
+        	text-align:center;
+        	color: white;
+        }
+
+        hr {
+            color: #240090;
+            opacity: 0.5;
+        }
+
+        .header__item {
+        	text-transform:uppercase;
+        }
+
+        .filter__link {
+        	color:white;
+        	text-decoration: none;
+        	position:relative;
+        	display:inline-block;
+        	padding-left:$base-spacing-unit;
+        	padding-right:$base-spacing-unit;
+
+        	&::after {
+        		content:'';
+        		position:absolute;
+        		right:-($half-spacing-unit * 1.5);
+        		color:white;
+        		font-size:$half-spacing-unit;
+        		top: 50%;
+        		transform: translateY(-50%);
+        	}
+
+        	&.desc::after {
+        		content: '(desc)';
+        	}
+
+        	&.asc::after {
+        		content: '(asc)';
+        	}
+
+        }
+    </style>
+</header>
+<header>
+    <div class="hrt-header">
+        <h1>
+            Heart Disease Failure Prediction Using MLFlow
+        </h1>
+        <hr class="hrt-hr">
+    </div>
+    <style>
+
+        .hrt-header {
+        	    background-color: #0C0032;
+        	    color: white;
+        }
+
+        .hrt-hr {
+            color: #3500D3;
+            opacity: 0.5;
+        }
+
+    </style>
+</header>
+<div class="container">
+
+    <div class="table">
+        <div class="table-header">
+            <div class="header__item"><a id="name" class="filter__link" href="#">ID</a></div>
+            <div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Prediction</a></div>
+            <div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Day</a></div>
+        </div>
+        <div class="table-content">
+            {% for key, value in data.items() %}
+                <div class="table-row">
+                    <div class="table-data">
+                        {{ key }}
+                    </div>
+                    {% for i in value %}
+                        <div class="table-data">
+                            {% if i is float %}
+                                <div class="table-data">
+                                    {{ round(i) }}
+                                </div>
+                            {% else %}
+                                <div class="table-data">
+                                    {{ i }}
+                                 </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+</div>
+{% block content %}{% endblock %}

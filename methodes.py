@@ -1,0 +1,41 @@
+import requests
+import json
+import numpy as np
+
+
+def get_one_prediction(pat_id):
+    json_request = {'model_version': 1,
+                    'patId': 1}
+    headers = {'Content-Type': 'application/json'}
+    json_request['patId'] = pat_id
+    data = {}
+    rsp = requests.post('http://147.102.33.191:29000/heartf/predict', data=json.dumps(json_request), headers=headers)
+    if rsp.status_code == 200 or rsp.status_code == 201:
+        max_elm = get_maximum_from_array(rsp.json()['prediction'])
+        data[pat_id] = [rsp.json()['prediction'][max_elm], rsp.json()['day'][max_elm]]
+    return data
+
+
+def get_all_prediction():
+    json_request = {'model_version': 1,
+                    'patId': 1}
+    headers = {'Content-Type': 'application/json'}
+    data = {}
+    for i in range(0, 300):
+        json_request['patId'] = i
+        rsp = requests.post('http://147.102.33.191:29000/heartf/predict', data=json.dumps(json_request), headers=headers)
+        if rsp.status_code == 200 or rsp.status_code == 201:
+            max_elm = get_maximum_from_array(rsp.json()['prediction'])
+            data[i] = [rsp.json()['prediction'][max_elm], rsp.json()['day'][max_elm]]
+    return data
+
+
+def get_maximum_from_array(array):
+    max_element = 0
+    pos = 0
+    for i, value in enumerate(array):
+        if max_element < value:
+            max_element = value
+            pos = i
+
+    return pos
