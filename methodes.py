@@ -1,12 +1,12 @@
 import requests
 import json
-import numpy as np
 
 
-def get_one_prediction(pat_id):
+def get_one_prediction(model_version, pat_id):
     json_request = {'model_version': 1,
                     'patId': 1}
     headers = {'Content-Type': 'application/json'}
+    json_request['model_version'] = model_version
     json_request['patId'] = pat_id
     data = {}
     rsp = requests.post('http://147.102.33.191:29000/heartf/predict', data=json.dumps(json_request), headers=headers)
@@ -16,10 +16,11 @@ def get_one_prediction(pat_id):
     return data
 
 
-def get_all_prediction():
+def get_all_prediction(model_version):
     json_request = {'model_version': 1,
                     'patId': 1}
     headers = {'Content-Type': 'application/json'}
+    json_request['model_version'] = model_version
     data = {}
     for i in range(0, 300):
         json_request['patId'] = i
