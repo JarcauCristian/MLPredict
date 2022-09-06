@@ -134,8 +134,10 @@
 <div class="main-block">
       <h1>Heart-Disease-Failure-Prediction</h1>
       <form action="/predict" method="post">
-        <label id="icon" for="name">ID</label>
-        <input type="text" name="name" id="name" placeholder="Patient ID"/>
+        <label id="icon" for="name">V</label>
+        <input type="text" name="model_version" id="name" placeholder="Model Version" required/>
+        <label id="icon" for="name"><i class="fas fa-user"></i></label>
+        <input type="text" name="name" id="name" placeholder="ID"/>
         <hr>
         <div class="all">
           <input type="radio" value="one" id="one" name="all" checked/>

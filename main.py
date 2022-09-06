@@ -13,12 +13,13 @@ def first_page():
 def get_predictions():
     if request.method == "POST":
         pat_id = request.form.get("name")
+        model_version = request.form.get("model_version")
         all_pts = request.form.get("all")
         data = {}
         if all_pts == "one":
-            data = get_one_prediction(int(pat_id))
+            data = get_one_prediction(model_version, int(pat_id))
         elif all_pts == "all":
-            data = get_all_prediction()
+            data = get_all_prediction(model_version)
         return render_template("prediction.html", data=data)
 
 
