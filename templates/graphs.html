@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:700px;top:35%;left:35%;position:absolute;"></canvas>
+
+<script>
+var xValues = {{ list_of_items | tojson }};
+var yValues = {{ letters | safe }}
+
+
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: "rgb(0,0,255)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Patient ID: {% for i in data.keys() %} {{ i }} {% endfor %} "
+    },
+  }
+});
+</script>
+
+</body>
+</html>
+{% block content %}{% endblock %}
+
