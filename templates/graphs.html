@@ -2,8 +2,29 @@
 <html>
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<body>
-<canvas id="myChart" style="width:100%;max-width:700px;top:35%;left:35%;position:absolute;"></canvas>
+<header>
+    <div class="hrt-header">
+        <h1>
+            Heart Disease Failure Prediction Using MLFlow
+        </h1>
+        <hr class="hrt-hr">
+    </div>
+    <style>
+
+        .hrt-header {
+        	    background-color: #000028;
+        	    color: white;
+        }
+
+        .hrt-hr {
+            color: #0027A0;
+            opacity: 1;
+        }
+
+    </style>
+</header>
+<body style="background-color:#000028">
+<canvas id="myChart" style="width:100%;max-width:700px;top:35%;left:35%;position:absolute;background-color:#00557C;"></canvas>
 
 <script>
 var xValues = {{ list_of_items | tojson }};
@@ -16,7 +37,7 @@ new Chart("myChart", {
   data: {
     labels: xValues,
     datasets: [{
-      backgroundColor: "rgb(0,0,255)",
+      backgroundColor: "rgb(0,190,220)",
       data: yValues
     }]
   },
@@ -24,8 +45,28 @@ new Chart("myChart", {
     legend: {display: false},
     title: {
       display: true,
-      text: "Patient ID: {% for i in data.keys() %} {{ i }} {% endfor %} "
+      text: "Patient ID: {% for i in data.keys() %} {{ i }} {% endfor %} ",
+      fontColor: "rgb(255,255,255)",
+      fontSize: 18
     },
+    scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "rgb(255,255,255)",
+                        fontSize: 18,
+                        stepSize: 1,
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "rgb(255,255,255)",
+                        fontSize: 14,
+                        stepSize: 1,
+                        beginAtZero: true
+                    }
+                }]
+      },
   }
 });
 </script>
