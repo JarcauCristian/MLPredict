@@ -17,13 +17,16 @@
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 16px;
-      color: #666;
+      }
+      body {
+        background-color:#000028;
       }
       h1 {
       padding: 10px 0;
       font-size: 32px;
       font-weight: 300;
       text-align: center;
+      color: white;
       }
       p {
       font-size: 12px;
@@ -40,7 +43,7 @@
       border-radius: 5px;
       border: solid 1px #ccc;
       box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-      background: #ebebeb;
+      background: #00557C;
       }
       form {
       margin: 0 30px;
@@ -54,6 +57,7 @@
       label#icon {
       margin: 0;
       border-radius: 5px 0 0 5px;
+      color: white;
       }
       label.radio {
       position: relative;
@@ -63,6 +67,7 @@
       text-indent: 30px;
       overflow: visible;
       cursor: pointer;
+      color: white;
       }
       label.radio:before {
       content: "";
@@ -72,7 +77,7 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: #1c87c9;
+      background: #0087BE;;
       }
       label.radio:after {
       content: "";
@@ -108,7 +113,6 @@
       padding: 9.3px 15px;
       box-shadow: 1px 2px 5px rgba(0,0,0,.09);
       background: #1c87c9;
-      color: #fff;
       text-align: center;
       }
       .btn-block {
@@ -144,6 +148,8 @@
           <label for="one" class="radio">One Patient</label>
           <input type="radio" value="all" id="all" name="all" />
           <label for="all" class="radio">All Patients</label>
+          <input type="radio" value="graph" id="graph" name="all" />
+          <label for="graph" class="radio">Graph</label>
         </div>
         <div class="btn-block">
           <button type="submit" href="/">Submit</button>
