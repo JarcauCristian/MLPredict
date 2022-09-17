@@ -22,7 +22,7 @@ def get_all_prediction(model_version):
     headers = {'Content-Type': 'application/json'}
     json_request['model_version'] = model_version
     data = {}
-    for i in range(0, 300):
+    for i in range(100271, 100570):
         json_request['patId'] = i
         rsp = requests.post('http://147.102.33.191:29000/heartf/predict', data=json.dumps(json_request), headers=headers)
         if rsp.status_code == 200 or rsp.status_code == 201:
