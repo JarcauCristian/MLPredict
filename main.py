@@ -1,4 +1,6 @@
+import csv
 import json
+from pprint import pprint
 
 from flask import Flask, request, render_template
 from methodes import get_one_prediction, get_all_prediction, get_one_prediction_all_data
@@ -28,6 +30,20 @@ def get_predictions():
         return render_template("prediction.html", data=data)
 
 
+@app.route('/data', methods=["GET"])
+def get_data():
+    with open('patData.csv', 'r') as csv_in:
+        csv_reader = csv.reader(csv_in)
+        data = {}
+        for index, row in enumerate(csv_reader):
+            if index == 0:
+                continue
+            else:
+                data[row[0]] = row[1]
+
+    return render_template("scenario1.html", data=data)
+
+
 @app.context_processor
 def my_utility_processor():
     def round_number(number):
@@ -42,7 +58,10 @@ def my_utility_processor():
     def return_pat_id(pat_id):
         return "Patient id:" + str(pat_id)
 
-    return dict(round=round_number, len=array_len, id=return_pat_id, rnd=round_to_int)
+    def print_data(data):
+        print(data)
+
+    return dict(round=round_number, len=array_len, id=return_pat_id, rnd=round_to_int, print_data=print_data)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<header>
+    {% block header %}{% endblock %}
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, select, p {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 22px;
+      }
+      body {
+        background-color: #eaf2f0;
+      }
+      @media only screen and (min-width: 1270px) {
+      form {
+      width: 50%;
+      padding: 20px;
+      position: absolute;
+      top: 25%;
+      left: calc(50% - 25%);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 30px 0 #96bfb5;
+      }
+      select {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      select {
+      width: 100%;
+      padding: 7px 0;
+      background: transparent;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover {
+      color: #a37547;
+      }
+      .item .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 6px 0 #96bfb5;
+      color: #a37547;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      button {
+      width: 80px;
+      padding: 10px;
+      position: relative;
+      left: calc(50% - 40px);
+      border: none;
+      border-radius: 5px;
+      background: #eaf2f0;
+      font-size: 16px;
+      color: black;
+      cursor: pointer;
+      }
+      button:hover {
+      box-shadow: 0 0 18px 0 #96bfb5;
+      }
+      .patId {
+        background-color: #eaf2f0;
+      }
+      #top_banner{
+            background-color: #96bfb5;
+            width: 100%;
+            height: 100px;
+        }
+        .header-text{
+            color: #000;
+            font-size: 20px;
+            position: relative;
+            top: 40%;
+            width: 490px;
+            left: calc(50% - (490px / 2))
+        }
+        input[type="checkbox"] {
+            width: 0;
+            height: 0;
+            visibility: hidden;
+        }
+        label {
+            display: block;
+            width: 100px;
+            height: 30px;
+            background-color: #477a85;
+            border-radius: 100px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.5s;
+            box-shadow: 0 0 20px #477a8550;
+        }
+        label::after {
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-color: #e8f5f7;
+            position: absolute;
+            border-radius: 70px;
+            top: 3px;
+            left: 3px;
+            transition: 0.5s;
+        }
+        input:checked + label:after {
+            left: calc(100% - 3px);
+            transform: translateX(-100%);
+        }
+        input:checked + label {
+            background-color: #243d42;
+        }
+        .dark_mode {
+            position: absolute;
+            left: 93%;
+            top: 12px;
+        }
+      }
+      }
+    </style>
+</header>
+<header id="top_banner">
+    <p class="header-text"><b>PROBABILITY OF DEATH FROM A HEART FAILURE</b><p>
+    <div class="dark_mode">
+        <input type="checkbox" name="switch" id="switch">
+        <label for="switch"></label>
+    </div>
+    <script>
+        $('#switch').change(function(){
+            let color = $(this).is(':checked') ? 'rgb(36, 61, 66)' : 'white';
+            $('body').css('background-color', color);
+        });
+        $('#switch').change(function(){
+            let color = $(this).is(':checked') ? 'black' : 'rgb(150, 191, 181)';
+            $('#top_banner').css('background-color', color);
+            $('#top_banner p').css('color', 'white');
+        });
+        $('#switch').change(function(){
+            let color = $(this).is(':checked') ? 'rgb(150, 191, 181)' : 'white';
+            $('form').css('background-color', color);
+            $('form').css('box-shadow', '0 0 30px 0 #000');
+        });
+    </script>
+</header>
+<body>
+    <div class="testbox">
+        <form action="/">
+            <div class="item">
+                <p style="color: #000"><b>PATIENT</b></p>
+                <select class="patId" required>
+                    {% for i, value in data.items() %}
+                        <option value="{{ i }}">{{ i + ": " + value }}</option>
+                    {% endfor %}
+                </select>
+                <button>Predict</button>
+            </div>
+        </form>
+    </div>
+</body>
