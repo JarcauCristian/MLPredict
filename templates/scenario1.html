@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <header>
     {% block header %}{% endblock %}
     <style>
@@ -121,6 +122,12 @@
             left: 93%;
             top: 12px;
         }
+        #myChart{
+            position: absolute;
+            top: 55%;
+            left: calc(50% - 300px);
+            visibility: hidden;
+        }
       }
       }
     </style>
@@ -149,8 +156,9 @@
     </script>
 </header>
 <body>
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
     <div class="testbox">
-        <form action="/">
+        <form action="/data">
             <div class="item">
                 <p style="color: #000"><b>PATIENT</b></p>
                 <select class="patId" required>
@@ -158,8 +166,36 @@
                         <option value="{{ i }}">{{ i + ": " + value }}</option>
                     {% endfor %}
                 </select>
-                <button>Predict</button>
+                <button onclick="changeVisibility()" type="button">Predict</button>
             </div>
         </form>
     </div>
+    <script>
+        function changeVisibility(){
+            $('#myChart').css('visibility', 'visible');
+
+            var xValues = {{ list_of_items | tojson }};
+            var yValues = {{ letters | safe }}
+
+            new Chart("myChart", {
+              type: "line",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "rgba(0,0,255,1.0)",
+                  borderColor: "rgba(0,0,255,0.1)",
+                  data: yValues
+                }]
+              },
+              options: {
+                legend: {display: false},
+                scales: {
+                  yAxes: [{ticks: {min: 0, max:100}}],
+                }
+              }
+            });
+        }
+    </script>
 </body>

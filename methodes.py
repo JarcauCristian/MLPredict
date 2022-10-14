@@ -16,7 +16,7 @@ def get_one_prediction(model_version, pat_id):
     return data
 
 
-def get_one_prediction_all_data(model_version, pat_id):
+def get_one_prediction_all_data(model_version=1, pat_id=100271):
     json_request = {'model_version': 1,
                     'patId': 1}
     headers = {'Content-Type': 'application/json'}
@@ -27,6 +27,9 @@ def get_one_prediction_all_data(model_version, pat_id):
     if rsp.status_code == 200 or rsp.status_code == 201:
         data[pat_id] = [regulate_data(rsp.json()['prediction']), rsp.json()['day']]
     return data
+
+
+print(get_one_prediction_all_data())
 
 
 def get_all_prediction(model_version):

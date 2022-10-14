@@ -30,16 +30,20 @@ def get_predictions():
         return render_template("prediction.html", data=data)
 
 
-@app.route('/data', methods=["GET"])
+@app.route('/data', methods=["POST"])
 def get_data():
-    with open('patData.csv', 'r') as csv_in:
-        csv_reader = csv.reader(csv_in)
-        data = {}
-        for index, row in enumerate(csv_reader):
-            if index == 0:
-                continue
-            else:
-                data[row[0]] = row[1]
+    if request.method == "POST":
+        pat_id =
+        with open('patData.csv', 'r') as csv_in:
+            csv_reader = csv.reader(csv_in)
+            data = {}
+            for index, row in enumerate(csv_reader):
+                if index == 0:
+                    continue
+                else:
+                    data[row[0]] = row[1]
+        pat_data = get_one_prediction_all_data(int(pat_id))
+        return render_template("graphs.html", data=pat_data, list_of_items=data[int(pat_id)][1],letters=data[int(pat_id)][0])
 
     return render_template("scenario1.html", data=data)
 
